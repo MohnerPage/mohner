@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  material    String   // "glass" o "plastic"
+  capacity    String   // ml
+  dimensions  String   // cm (legacy, se recomiendan los específicos)
+  height      String?  // altura
+  diameter    String?  // diametro
+  thread      String?  // rosca (ej. 24/410)
+  colors      String?  // colores (ej. "Ámbar, Transparente")
+  category    String
+  price       Float
+  imageUrl    String?
+  galleryUrls String?  // JSON stringified array de imágenes extra ["url1", "url2"]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteSettings {
+  id              String   @id @default("global")
+  whatsappNumber  String   @default("5213312345678")
+  brandName       String   @default("Crystalline")
+  logoImageUrl    String?
+  heroTitle       String   @default("Excelencia en Envases de Vidrio y Plástico")
+  heroSubtitle    String   @default("Fabricamos y distribuimos envases de alta calidad para alimentos, bebidas, cosméticos y farmacéutica...")
+  heroImageUrl    String?
+  heroBgImageUrl  String?
+  aboutText       String   @default("En Crystalline transformamos materias primas en obras de arte funcionales...")
+  aboutImageUrl   String?
+  aboutTitle      String   @default("Somos Crystalline")
+  aboutStats      String   @default("[{\"label\":\"Años de experiencia\",\"value\":\"28\"},{\"label\":\"Clientes confían\",\"value\":\"750+\"},{\"label\":\"Envases/año\",\"value\":\"15M\"},{\"label\":\"Tasa de cumplimiento\",\"value\":\"99.8%\"}]")
+  aboutImageSize  Int      @default(400)
+  heroImageSize   Int      @default(400)
+  whyTitle        String   @default("Why Choose Crystalline")
+  whySubtitle     String   @default("No solo vendemos envases; ofrecemos soluciones completas que impulsan el éxito de tu producto.")
+  whyCards        String   @default("[{\"icon\":\"workspace_premium\",\"title\":\"Calidad Certificada\",\"description\":\"Procesos validados bajo ISO 9001.\"},{\"icon\":\"precision_manufacturing\",\"title\":\"Fabricación Flexible\",\"description\":\"Moldes personalizados.\"},{\"icon\":\"eco\",\"title\":\"Sostenibilidad Real\",\"description\":\"Reducimos huella de carbono.\"},{\"icon\":\"local_shipping\",\"title\":\"Logística Nacional\",\"description\":\"Entrega en 72h.\"}]")
+  certTitle       String   @default("Certificaciones y Normas")
+  certSubtitle    String   @default("Operamos bajo los más rigurosos estándares internacionales, garantizando la máxima calidad y seguridad en cada envase que producimos.")
+  certCards       String   @default("[{\"name\":\"ISO 9001\",\"description\":\"Gestión de Calidad\"},{\"name\":\"ISO 14001\",\"description\":\"Gestión Ambiental\"},{\"name\":\"FDA\",\"description\":\"FDA Registration\"},{\"name\":\"CE\",\"description\":\"Conformidad Europea\"},{\"name\":\"BRC\",\"description\":\"British Retail Consortium\"},{\"name\":\"HACCP\",\"description\":\"Análisis de Peligros\"}]")
+  testiTitle      String   @default("Lo Que Dicen Nuestros Clientes")
+  testimonials    String   @default("[{\"quote\":\"Crystalline ha sido un socio estratégico clave para nuestra línea de bebidas premium. La calidad del vidrio y la consistencia en los envíos son excepcionales.\",\"author\":\"María González\",\"role\":\"Directora de Operaciones, Destilería Altamar\"},{\"quote\":\"La transparencia en la comunicación y la capacidad de respuesta a nuestras especificaciones técnicas hacen de Crystalline un proveedor confiable.\",\"author\":\"Carlos Ruiz\",\"role\":\"Gerente de Supply Chain, Cosméticos Natura\"},{\"quote\":\"Desde que cambiamos a los envases de Crystalline, nuestra tasa de reclamos por defectos ha disminuido en un 40%. Excelente inversión.\",\"author\":\"Elena Torres\",\"role\":\"Jefa de Calidad, Farmacéutica Vital\"}]")
+  contactEmail    String   @default("contacto@crystalline.com")
+  footerAboutText String   @default("Distribuidores de envases de vidrio y plástico para las industrias alimentaria, cosmética y farmacéutica.")
+  facebookUrl     String?
+  instagramUrl    String?
+  linkedinUrl     String?
+  siteTitle       String   @default("Crystalline | Envases de Plástico y Vidrio")
+  faviconUrl      String?
+  logoHeight      Int      @default(40)
+  showCatalog     Boolean  @default(true)
+  showAbout       Boolean  @default(true)
+  showValues      Boolean  @default(true)
+  showCertifications Boolean  @default(true)
+  showTestimonials Boolean  @default(true)
+  showContact     Boolean  @default(false)
+  updatedAt       DateTime @updatedAt
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("admin") // "admin" o "viewer"
+  createdAt DateTime @default(now())
+}

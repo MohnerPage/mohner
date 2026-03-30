@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #5c6ac3;
+  --color-primary-dim: #494db8;
+  --color-on-primary: #ffffff;
+  --color-surface: #f8fafb;
+  --color-surface-container: #ffffff;
+  --color-surface-container-high: #f1f5f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-dim: #e9ecef;
+  --color-outline-variant: #c5c5c5;
+  --color-on-surface: #1f2937;
+  --color-on-surface-variant: #6b7280;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  --font-headline: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  --blur-glass: 20px;
+}
+
+/* Crystalline Design System - Essential Styles for FOUC Prevention */
+:root {
+  --primary: #5c6ac3;
+  --primary-dim: #494db8;
+  --on-primary: #ffffff;
+  --surface: #f8fafb;
+  --on-surface: #1f2937;
+  --on-surface-variant: #6b7280;
+  --success: #10b981;
+}
+
+body {
+  background-color: var(--surface) !important;
+  color: var(--on-surface) !important;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-headline {
+  font-family: 'Manrope', sans-serif;
+}
+
+.text-primary { color: var(--primary); }
+.bg-primary { background-color: var(--primary); color: var(--on-primary); }
+.rounded-xl { border-radius: 0.75rem; }
+
+/* Custom components & utilities */
+
+/* Glassmorphism */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.glass-background {
+  background: rgba(248, 250, 251, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.shadow-glass {
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafb;
+}
+::-webkit-scrollbar-thumb {
+  background: #a9b4b7;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #727d80;
+}
+
+/* Active scale */
+.active-scale:active {
+  transform: scale(0.95);
+}
+
+/* Mix-blend para imágenes */
+.mix-blend-multiply {
+  mix-blend-mode: multiply;
+}

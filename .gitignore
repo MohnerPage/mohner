@@ -28,3 +28,23 @@ prisma/dev.db-journal
 # screenshots & temp
 screenshots/
 build.log
+
+# openclaw / agent files (sensitive)
+.openclaw/
+AGENTS.md
+BOOTSTRAP.md
+SOUL.md
+USER.md
+TOOLS.md
+HEARTBEAT.md
+IDENTITY.md
+GEMINI_PROMPT.md
+DESIGN.md
+
+# dev scripts & tests
+backlog-product.md
+build_and_log.sh
+test.ts
+test_api.py
+product-images.js
+preview.jsx

@@ -4,10 +4,15 @@ import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/auth';
 
 export async function GET() {
-  const products = await prisma.product.findMany({
-    orderBy: { createdAt: 'desc' },
-  });
-  return NextResponse.json(products);
+  try {
+    const products = await prisma.product.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+    return NextResponse.json(products);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return NextResponse.json([]);
+  }
 }
 
 export async function POST(req: Request) {

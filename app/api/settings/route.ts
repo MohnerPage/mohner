@@ -10,7 +10,8 @@ export async function GET() {
     });
     return NextResponse.json(settings || {});
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching settings' }, { status: 500 });
+    console.error('Error fetching settings:', error);
+    return NextResponse.json({});
   }
 }
 

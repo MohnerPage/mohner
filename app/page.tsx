@@ -16,13 +16,20 @@ export default async function Home() {
   const cookieStore = await cookies();
   const isAuthenticated = cookieStore.has('auth_token');
 
-  const dbProducts = await prisma.product.findMany({
-    orderBy: { createdAt: 'desc' }
-  });
+  let dbProducts: any[] = [];
+  let settings: any = null;
 
-  const settings = await (prisma as any).siteSettings.findUnique({
-    where: { id: 'global' }
-  });
+  try {
+    dbProducts = await prisma.product.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+
+    settings = await (prisma as any).siteSettings.findUnique({
+      where: { id: 'global' }
+    });
+  } catch (error) {
+    console.error("Database connection failed, using fallbacks:", error);
+  }
   
   // ... (keeping fallbackSettings as updated in previous step)
   const fallbackSettings = {

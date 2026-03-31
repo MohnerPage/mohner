@@ -5,9 +5,14 @@ import Script from 'next/script';
 import { prisma } from '@/lib/prisma';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await prisma.siteSettings.findUnique({
-    where: { id: 'global' }
-  });
+  let settings: any = null;
+  try {
+    settings = await prisma.siteSettings.findUnique({
+      where: { id: 'global' }
+    });
+  } catch (error) {
+    console.error("Metadata fetch failed during build:", error);
+  }
 
   const absoluteTitle = settings?.siteTitle || 'Crystalline | Líder en Envases de Vidrio y Plástico en México';
   const iconUrl = settings?.faviconUrl || '/favicon.svg';

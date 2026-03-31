@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
-import { writeFile } from 'fs/promises';
-import { join } from 'path';
 import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/auth';
+import { supabase } from '@/lib/supabase';
 
 export async function POST(req: Request) {
   // Verificar autenticación admin
@@ -30,12 +29,26 @@ export async function POST(req: Request) {
     // Crear nombre único para evitar colisiones
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     const filename = `${uniqueSuffix}-${file.name.replace(/\s+/g, '_')}`;
-    const path = join(process.cwd(), 'public/uploads', filename);
 
-    await writeFile(path, buffer);
+    // Subir a Supabase Storage
+    const { data, error } = await supabase.storage
+      .from('uploads')
+      .upload(filename, buffer, {
+        contentType: file.type,
+        upsert: false
+      });
 
-    const imageUrl = `/uploads/${filename}`;
-    return NextResponse.json({ imageUrl });
+    if (error) {
+      console.error('Error de Supabase Storage:', error);
+      return NextResponse.json({ error: `Error de almacenamiento: ${error.message}` }, { status: 500 });
+    }
+
+    // Obtener la URL pública
+    const { data: { publicUrl } } = supabase.storage
+      .from('uploads')
+      .getPublicUrl(filename);
+
+    return NextResponse.json({ imageUrl: publicUrl });
   } catch (error) {
     console.error('Error al subir archivo:', error);
     return NextResponse.json({ error: 'Error interno al procesar la imagen' }, { status: 500 });

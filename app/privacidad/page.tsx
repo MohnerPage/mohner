@@ -1,14 +1,17 @@
 import NavbarPublic from '@/components/NavbarPublic';
 import Footer from '@/components/Footer';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 async function getSettings() {
-  const settings = await prisma.siteSettings.findUnique({
-    where: { id: 'global' },
-  });
-  return settings;
+  try {
+    const settings = await prisma.siteSettings.findUnique({
+      where: { id: 'global' },
+    });
+    return settings;
+  } catch (error) {
+    console.error("Error fetching settings for privacy page during build:", error);
+    return null;
+  }
 }
 
 export default async function PrivacyPage() {

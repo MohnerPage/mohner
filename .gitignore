@@ -1,6 +1,6 @@
-# dependencies
+# projects
+remotion-vids/
 node_modules/
-remotion-vids/node_modules/
 
 # next.js
 .next/

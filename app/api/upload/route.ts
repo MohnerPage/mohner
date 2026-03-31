@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/auth';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase';
 
 export async function POST(req: Request) {
   // Verificar autenticación admin
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     const filename = `${uniqueSuffix}-${file.name.replace(/\s+/g, '_')}`;
 
     // Subir a Supabase Storage
-    const { data, error } = await supabase.storage
+    const { data, error } = await supabaseAdmin.storage
       .from('uploads')
       .upload(filename, buffer, {
         contentType: file.type,
@@ -40,17 +40,24 @@ export async function POST(req: Request) {
 
     if (error) {
       console.error('Error de Supabase Storage:', error);
-      return NextResponse.json({ error: `Error de almacenamiento: ${error.message}` }, { status: 500 });
+      // Return specific error from Supabase to help debugging
+      return NextResponse.json({ 
+        error: `Error de Supabase: ${error.message}`,
+        details: error
+      }, { status: 500 });
     }
 
     // Obtener la URL pública
-    const { data: { publicUrl } } = supabase.storage
+    const { data: { publicUrl } } = supabaseAdmin.storage
       .from('uploads')
       .getPublicUrl(filename);
 
     return NextResponse.json({ imageUrl: publicUrl });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error al subir archivo:', error);
-    return NextResponse.json({ error: 'Error interno al procesar la imagen' }, { status: 500 });
+    return NextResponse.json({ 
+      error: 'Error interno en el servidor', 
+      message: error.message 
+    }, { status: 500 });
   }
 }

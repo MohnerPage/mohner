@@ -1,4 +1,4 @@
-import ProductCard from '../../preview.jsx';
+import ProductCard from '@/components/ProductPreview';
 
 export default function PreviewPage() {
   return (

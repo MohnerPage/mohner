@@ -214,12 +214,13 @@ export default function ConfigPage() {
       formDataObj.append('file', compressedFile, file.name);
 
       const res = await fetch('/api/upload', { method: 'POST', body: formDataObj });
-      if (!res.ok) throw new Error('Error al subir');
-
       const data = await res.json();
+      
+      if (!res.ok) throw new Error(data.error || 'Error al subir');
+
       setFormData(prev => ({ ...prev, [field]: data.imageUrl }));
-    } catch (error) {
-      alert('Error al subir imagen');
+    } catch (error: any) {
+      alert(`Error al subir imagen: ${error.message}`);
     } finally {
       setUploadingHero(false);
       setUploadingHeroBg(false);

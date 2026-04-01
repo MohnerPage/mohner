@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Save, AlertCircle, CheckCircle2, Upload, Loader2, Image as ImageIcon, Hash, Layout, HelpCircle, Star, Award, MessageSquare, Quote, Info, ShieldCheck, Mail, Phone, Globe, Link as LinkIcon, Share2, Music } from 'lucide-react';
+import { Save, AlertCircle, CheckCircle2, Upload, Loader2, Image as ImageIcon, Hash, Layout, HelpCircle, Star, Award, MessageSquare, Quote, Info, ShieldCheck, Mail, Phone, Globe, Link as LinkIcon, Share2, Music, Plus } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
 
 export default function ConfigPage() {
@@ -162,6 +162,9 @@ export default function ConfigPage() {
     newTestis[index] = { ...newTestis[index], [field]: value };
     setTestimonials(newTestis);
   };
+
+  const addStat = () => setStats([...stats, { value: '', label: '' }]);
+  const removeStat = (index: number) => setStats(stats.filter((_, i) => i !== index));
 
   const addCert = () => setCertCards([...certCards, { name: '', description: '' }]);
   const removeCert = (index: number) => setCertCards(certCards.filter((_, i) => i !== index));
@@ -397,13 +400,20 @@ export default function ConfigPage() {
                    <textarea name="aboutText" value={formData.aboutText} onChange={handleChange} rows={6} className="w-full p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl text-sm leading-relaxed" placeholder="Historia / Misión..." />
                 </div>
              </div>
-             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {stats.map((stat: any, idx) => (
-                <div key={idx} className="p-4 bg-slate-50 rounded-2xl border-2 border-slate-100">
-                  <input value={stat.value} onChange={(e) => handleStatChange(idx, 'value', e.target.value)} className="w-full bg-transparent font-black text-slate-900 text-lg outline-none" placeholder="28+" />
-                  <input value={stat.label} onChange={(e) => handleStatChange(idx, 'label', e.target.value)} className="w-full bg-transparent font-black uppercase text-[8px] text-slate-400 outline-none" placeholder="Años" />
+                <div key={idx} className="p-4 bg-white rounded-2xl border-2 border-slate-100 relative group hover:border-slate-300 transition-all shadow-sm">
+                  <button onClick={() => removeStat(idx)} className="absolute -top-2 -right-2 w-6 h-6 bg-rose-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-xs shadow-lg">×</button>
+                  <label className="block text-[8px] font-black text-slate-300 uppercase mb-1">Valor</label>
+                  <input value={stat.value} onChange={(e) => handleStatChange(idx, 'value', e.target.value)} className="w-full bg-slate-50 p-2 rounded-lg font-black text-slate-900 text-lg outline-none border border-transparent focus:border-slate-200" placeholder="Ej. 28" />
+                  <label className="block text-[8px] font-black text-slate-300 uppercase mt-2 mb-1">Etiqueta</label>
+                  <input value={stat.label} onChange={(e) => handleStatChange(idx, 'label', e.target.value)} className="w-full bg-slate-50 p-2 rounded-lg font-bold uppercase text-[9px] text-slate-500 outline-none border border-transparent focus:border-slate-200" placeholder="Ej. AÑOS DE EXPERIENCIA" />
                 </div>
               ))}
+              <button onClick={addStat} className="h-full min-h-[120px] border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center text-[10px] font-black uppercase tracking-widest text-slate-300 hover:border-slate-900 hover:text-slate-900 transition-all gap-2 bg-slate-50/50">
+                <Plus size={20} />
+                <span>Añadir Dato</span>
+              </button>
              </div>
            </div>
         </section>

@@ -94,7 +94,11 @@ export default function CatalogSection({ products, dbProducts, whatsappNumber }:
       {/* Resultados Filtrados y Paginados */}
       {filteredProducts.length > 0 ? (
         <>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-12">
+          <style jsx>{`
+            .no-scrollbar::-webkit-scrollbar { display: none; }
+            .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+          `}</style>
+          <div className="flex overflow-x-auto snap-x snap-mandatory pb-12 px-4 -mx-4 gap-6 no-scrollbar md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-8 mb-4">
             {currentProducts.map((product) => (
               <ProductCard key={product.id} product={product} whatsappNumber={whatsappNumber} />
             ))}

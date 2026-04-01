@@ -49,7 +49,7 @@ export default function ProductCard({ product, whatsappNumber }: { product: Prod
   return (
     <>
       {/* TARJETA PRINCIPAL (ESTILO 6 - IMAGE FIRST) */}
-      <div className="w-full bg-white rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all duration-300 border border-gray-100 flex flex-col">
+      <div className="w-72 shrink-0 md:w-full snap-center bg-white rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all duration-300 border border-gray-100 flex flex-col">
         
         {/* Sección del Carrusel (Imagen Grande) */}
         <div className="relative h-[280px] w-full bg-slate-50 group" style={{ height: '280px', position: 'relative', overflow: 'hidden' }}>

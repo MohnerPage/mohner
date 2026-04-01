@@ -3,6 +3,9 @@ import './globals.css';
 import Script from 'next/script';
 
 import { prisma } from '@/lib/prisma';
+ 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
   let settings: any = null;

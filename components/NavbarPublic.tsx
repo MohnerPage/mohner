@@ -98,9 +98,11 @@ export default function NavbarPublic({
               {link.name}
             </Link>
           ))}
-          <Link href={authenticated ? "/admin/configuracion" : "/login"} className="bg-primary text-on-primary px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 whitespace-nowrap">
-            {authenticated ? "Administrar Sitio" : "Iniciar Sesión"}
-          </Link>
+          {authenticated && (
+            <Link href="/admin/configuracion" className="bg-primary text-on-primary px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 whitespace-nowrap">
+              Administrar Sitio
+            </Link>
+          )}
         </div>
 
         {/* Mobile menu button */}
@@ -129,9 +131,11 @@ export default function NavbarPublic({
                 {link.name}
               </Link>
             ))}
-            <Link href={authenticated ? "/admin/configuracion" : "/login"} className="block w-full text-center bg-primary text-on-primary px-6 py-3 rounded-xl font-black uppercase tracking-widest shadow-lg shadow-primary/20 active:scale-95">
-              {authenticated ? "Administrar Sitio" : "Iniciar Sesión"}
-            </Link>
+            {authenticated && (
+              <Link href="/admin/configuracion" className="block w-full text-center bg-primary text-on-primary px-6 py-3 rounded-xl font-black uppercase tracking-widest shadow-lg shadow-primary/20 active:scale-95">
+                Administrar Sitio
+              </Link>
+            )}
           </div>
         </div>
       )}

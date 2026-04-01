@@ -71,7 +71,7 @@ export default function Footer({
 
         <div className="pt-8 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-on-surface-variant font-medium">
-            © {new Date().getFullYear()} {brandName}. Todos los derechos reservados.
+            <Link href="/login" className="hover:text-primary transition-colors cursor-default select-none">©</Link> {new Date().getFullYear()} {brandName}. Todos los derechos reservados.
           </p>
           <div className="text-[10px] text-on-surface-variant uppercase font-black tracking-widest opacity-40">
             Excelencia en empaque industrial

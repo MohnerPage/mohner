@@ -13,7 +13,8 @@ export default function NavbarPublic({
   showValues = true,
   showCertifications = true,
   showTestimonials = true,
-  showContact = false
+  showContact = false,
+  minimal = false
 }: { 
   brandName: string, 
   logoImageUrl: string | null,
@@ -24,7 +25,8 @@ export default function NavbarPublic({
   showValues?: boolean,
   showCertifications?: boolean,
   showTestimonials?: boolean,
-  showContact?: boolean
+  showContact?: boolean,
+  minimal?: boolean
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -87,33 +89,56 @@ export default function NavbarPublic({
 
         {/* Desktop Menu */}
         <div className="hidden xl:flex gap-6 items-center">
-          {navLinks.map((link) => (
+          {minimal ? (
             <Link 
-              key={link.name}
-              href={`/${link.href}`} 
-              onClick={(e) => handleScroll(e, link.href)} 
-              className="text-[10px] font-black uppercase shadow-none tracking-widest text-on-surface hover:text-primary transition-colors"
+              href="/" 
+              className="px-6 py-2 bg-primary/10 text-primary border border-primary/20 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all shadow-sm active:scale-95"
             >
-              {link.name}
+              Volver al Inicio
             </Link>
-          ))}
-          {authenticated && (
-            <Link href="/admin/configuracion" className="bg-primary text-on-primary px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 whitespace-nowrap">
-              Administrar Sitio
-            </Link>
+          ) : (
+            <>
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.name}
+                  href={`/${link.href}`} 
+                  onClick={(e) => handleScroll(e, link.href)} 
+                  className="text-[10px] font-black uppercase shadow-none tracking-widest text-on-surface hover:text-primary transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
+              {authenticated && (
+                <Link href="/admin/configuracion" className="bg-primary text-on-primary px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 whitespace-nowrap">
+                  Administrar Sitio
+                </Link>
+              )}
+            </>
           )}
         </div>
 
         {/* Mobile menu button */}
-        <button
-          className="xl:hidden p-2 rounded-lg hover:bg-surface-variant text-primary"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span className="material-symbols-outlined text-2xl text-on-surface">
-            {mobileMenuOpen ? 'close' : 'menu'}
-          </span>
-        </button>
+        {!minimal && (
+          <button
+            className="xl:hidden p-2 rounded-lg hover:bg-surface-variant text-primary"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className="material-symbols-outlined text-2xl text-on-surface">
+              {mobileMenuOpen ? 'close' : 'menu'}
+            </span>
+          </button>
+        )}
+        
+        {/* Mobile Back Button (Minimal Mode) */}
+        {minimal && (
+          <Link 
+            href="/" 
+            className="xl:hidden px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all active:scale-95"
+          >
+            Regresar
+          </Link>
+        )}
       </div>
 
       {/* Mobile Menu */}

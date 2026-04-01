@@ -25,6 +25,7 @@ export default async function PrivacyPage() {
         logoImageUrl={settings?.logoImageUrl || null} 
         authenticated={false} 
         logoHeight={(settings as any)?.logoHeight || 40}
+        minimal={true}
       />
       
       <div className="max-w-4xl mx-auto px-8 py-32">

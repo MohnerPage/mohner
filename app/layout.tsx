@@ -43,14 +43,28 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let settings: any = null;
+  try {
+    settings = await prisma.siteSettings.findUnique({
+      where: { id: 'global' }
+    });
+  } catch (error) {}
+
+  const absoluteTitle = settings?.siteTitle || 'Multienvases y Plásticos Monher | Envases de Calidad';
+  const iconUrl = settings?.faviconUrl 
+    ? `${settings.faviconUrl}?t=${Date.now()}` 
+    : '/favicon.svg';
+
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
+        <title>{absoluteTitle}</title>
+        <link rel="icon" href={iconUrl} />
         {/* Tailwind CSS via CDN */}
         {/* Preconnect for Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

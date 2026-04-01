@@ -91,3 +91,21 @@ h1, h2, h3, h4, .font-headline {
 .mix-blend-multiply {
   mix-blend-mode: multiply;
 }
+
+/* Hide Material Symbols text until font is ready */
+.material-symbols-outlined {
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utility to hide scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

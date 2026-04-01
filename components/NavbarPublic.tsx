@@ -72,7 +72,7 @@ export default function NavbarPublic({
             <img 
               src={logoImageUrl} 
               alt={brandName} 
-              className="object-contain drop-shadow-md transition-all duration-300 max-h-[60px] md:max-h-none" 
+              className="object-contain drop-shadow-md transition-all duration-300 max-h-[90px] md:max-h-none" 
               style={{ 
                 height: `${logoHeight}px`,
                 width: 'auto'

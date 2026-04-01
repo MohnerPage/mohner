@@ -96,7 +96,7 @@ export default async function Home() {
       />
       <main>
         {/* Hero Section */}
-        <section id="home" className="pt-32 md:pt-20 min-h-[60vh] flex items-center relative overflow-hidden bg-surface">
+        <section id="home" className="pt-40 md:pt-20 min-h-[60vh] flex items-center relative overflow-hidden bg-surface">
           {fallbackSettings.heroBgImageUrl ? (
             <div className="absolute inset-0 z-0">
               <img src={fallbackSettings.heroBgImageUrl} alt="Hero Background" className="w-full h-full object-cover opacity-15" />

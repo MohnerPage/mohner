@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Save, AlertCircle, CheckCircle2, Upload, Loader2, Image as ImageIcon, Hash, Layout, HelpCircle, Star, Award, MessageSquare, Quote, Info, ShieldCheck, Mail, Phone, Globe, Link as LinkIcon, Share2 } from 'lucide-react';
+import { Save, AlertCircle, CheckCircle2, Upload, Loader2, Image as ImageIcon, Hash, Layout, HelpCircle, Star, Award, MessageSquare, Quote, Info, ShieldCheck, Mail, Phone, Globe, Link as LinkIcon, Share2, Music } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
 
 export default function ConfigPage() {
@@ -11,6 +11,7 @@ export default function ConfigPage() {
   const [uploadingHeroBg, setUploadingHeroBg] = useState(false);
   const [uploadingAbout, setUploadingAbout] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [uploadingFavicon, setUploadingFavicon] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   
   const [formData, setFormData] = useState({
@@ -42,7 +43,7 @@ export default function ConfigPage() {
     footerAboutText: '',
     facebookUrl: '',
     instagramUrl: '',
-    linkedinUrl: '',
+    tiktokUrl: '',
     showCatalog: true,
     showAbout: true,
     showValues: true,
@@ -60,6 +61,7 @@ export default function ConfigPage() {
   const heroBgInputRef = useRef<HTMLInputElement>(null);
   const aboutInputRef = useRef<HTMLInputElement>(null);
   const logoInputRef = useRef<HTMLInputElement>(null);
+  const faviconInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetch('/api/settings')
@@ -95,7 +97,7 @@ export default function ConfigPage() {
             footerAboutText: data.footerAboutText || '',
             facebookUrl: data.facebookUrl || '',
             instagramUrl: data.instagramUrl || '',
-            linkedinUrl: data.linkedinUrl || '',
+            tiktokUrl: data.tiktokUrl || '',
             showCatalog: data.showCatalog !== undefined ? data.showCatalog : true,
             showAbout: data.showAbout !== undefined ? data.showAbout : true,
             showValues: data.showValues !== undefined ? data.showValues : true,
@@ -206,6 +208,7 @@ export default function ConfigPage() {
       if (field === 'heroBgImageUrl') setUploadingHeroBg(true);
       if (field === 'aboutImageUrl') setUploadingAbout(true);
       if (field === 'logoImageUrl') setUploadingLogo(true);
+      if (field === 'faviconUrl') setUploadingFavicon(true);
 
       const options = { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true };
       const compressedFile = await imageCompression(file, options);
@@ -226,6 +229,7 @@ export default function ConfigPage() {
       setUploadingHeroBg(false);
       setUploadingAbout(false);
       setUploadingLogo(false);
+      setUploadingFavicon(false);
     }
   };
 
@@ -269,7 +273,7 @@ export default function ConfigPage() {
           <div className="p-8 space-y-8">
             <div className="grid md:grid-cols-3 gap-8">
               <div className="md:col-span-1">
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Logo de Marca</label>
+                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Logo de Marca <span className="text-slate-300 normal-case font-medium ml-2">(Sugerido: 400x400px)</span></label>
                 <div onClick={() => logoInputRef.current?.click()} className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center cursor-pointer hover:bg-slate-100 transition-all group overflow-hidden">
                   <input type="file" ref={logoInputRef} onChange={(e) => handleImageUpload(e, 'logoImageUrl')} className="hidden" />
                   {formData.logoImageUrl ? <img src={formData.logoImageUrl} className="h-full w-full object-contain p-4 group-hover:scale-110 transition-transform" /> : uploadingLogo ? <Loader2 className="animate-spin text-slate-400" /> : <Upload size={24} className="text-slate-300" />}
@@ -279,6 +283,23 @@ export default function ConfigPage() {
                 <div>
                   <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Nombre Público</label>
                   <input type="text" name="brandName" value={formData.brandName} onChange={handleChange} className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-slate-900 outline-none transition-all font-bold text-slate-800" />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Título de la Web (SEO)</label>
+                  <input type="text" name="siteTitle" value={formData.siteTitle} onChange={handleChange} placeholder="Ej. Monher | Envases de Vidrio" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-slate-900 outline-none transition-all font-bold text-slate-800" />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Favicon de la Web <span className="text-slate-300 normal-case font-medium ml-2">(Sugerido: 32x32px .ico o .png)</span></label>
+                  <div className="flex items-center gap-4">
+                    <div onClick={() => faviconInputRef.current?.click()} className="w-16 h-16 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center cursor-pointer hover:bg-slate-100 transition-all overflow-hidden relative">
+                      <input type="file" ref={faviconInputRef} onChange={(e) => handleImageUpload(e, 'faviconUrl')} className="hidden" />
+                      {formData.faviconUrl ? <img src={formData.faviconUrl} className="w-full h-full object-contain p-2" /> : uploadingFavicon ? <Loader2 className="animate-spin text-slate-400" /> : <Upload size={16} className="text-slate-300" />}
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-slate-500">Haz clic para subir el icono de la pestaña</p>
+                      {formData.faviconUrl && <button onClick={() => setFormData({...formData, faviconUrl: ''})} className="text-[9px] text-rose-500 font-black uppercase tracking-widest hover:underline mt-1">Eliminar</button>}
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Altura Visual del Logo: {formData.logoHeight}px</label>
@@ -302,7 +323,7 @@ export default function ConfigPage() {
           <div className="p-8 space-y-8">
              <div className="grid md:grid-cols-2 gap-8">
                <div className="space-y-4">
-                 <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Imagen Central 1:1</label>
+                 <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Imagen Central 1:1 <span className="text-slate-300 normal-case font-medium ml-2">(Sugerido: 1000x1000px)</span></label>
                  <div onClick={() => heroInputRef.current?.click()} className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center cursor-pointer overflow-hidden group">
                    <input type="file" ref={heroInputRef} onChange={(e) => handleImageUpload(e, 'heroImageUrl')} className="hidden" />
                    {formData.heroImageUrl ? <img src={formData.heroImageUrl} className="w-full h-full object-cover group-hover:scale-105 transition-transform" /> : uploadingHero ? <Loader2 className="animate-spin text-slate-400" /> : <ImageIcon size={32} className="text-slate-200" />}
@@ -313,7 +334,7 @@ export default function ConfigPage() {
                  </div>
                </div>
                <div className="space-y-4">
-                 <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Fondo del Hero</label>
+                 <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Fondo del Hero <span className="text-slate-300 normal-case font-medium ml-2">(Sugerido: 1920x1080px)</span></label>
                  <div onClick={() => heroBgInputRef.current?.click()} className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center cursor-pointer overflow-hidden group">
                    <input type="file" ref={heroBgInputRef} onChange={(e) => handleImageUpload(e, 'heroBgImageUrl')} className="hidden" />
                    {formData.heroBgImageUrl ? <img src={formData.heroBgImageUrl} className="w-full h-full object-cover group-hover:scale-105 transition-transform opacity-50" /> : <Layout size={32} className="text-slate-200" />}
@@ -364,6 +385,7 @@ export default function ConfigPage() {
            <div className="p-8 space-y-8">
              <div className="grid md:grid-cols-3 gap-8">
                 <div className="md:col-span-1 space-y-4">
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Imagen de Sección <span className="text-slate-300 normal-case font-medium ml-2">(Sugerido: 800x800px)</span></label>
                   <div onClick={() => aboutInputRef.current?.click()} className="aspect-video md:aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl flex items-center justify-center cursor-pointer overflow-hidden">
                     <input type="file" ref={aboutInputRef} onChange={(e) => handleImageUpload(e, 'aboutImageUrl')} className="hidden" />
                     {formData.aboutImageUrl ? <img src={formData.aboutImageUrl} className="w-full h-full object-cover" /> : <ImageIcon size={32} className="text-slate-200" />}
@@ -531,8 +553,8 @@ export default function ConfigPage() {
                     <input type="text" name="instagramUrl" value={formData.instagramUrl} onChange={handleChange} placeholder="https://instagram.com/..." className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl text-xs font-bold" />
                  </div>
                  <div>
-                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 italic flex items-center gap-2"><LinkIcon size={12} /> LinkedIn URL</label>
-                    <input type="text" name="linkedinUrl" value={formData.linkedinUrl} onChange={handleChange} placeholder="https://linkedin.com/..." className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl text-xs font-bold" />
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 italic flex items-center gap-2"><Music size={12} /> TikTok URL</label>
+                    <input type="text" name="tiktokUrl" value={formData.tiktokUrl} onChange={handleChange} placeholder="https://tiktok.com/@..." className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl text-xs font-bold" />
                  </div>
               </div>
            </div>

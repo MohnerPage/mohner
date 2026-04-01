@@ -81,7 +81,7 @@ export default async function PrivacyPage() {
         footerAboutText={(settings as any)?.footerAboutText}
         facebookUrl={(settings as any)?.facebookUrl}
         instagramUrl={(settings as any)?.instagramUrl}
-        linkedinUrl={(settings as any)?.linkedinUrl}
+        tiktokUrl={(settings as any)?.tiktokUrl}
       />
     </main>
   );

@@ -59,7 +59,7 @@ export default async function Home() {
     footerAboutText: (settings as any)?.footerAboutText || 'Distribuidores de envases de vidrio y plástico para las industrias alimentaria, cosmética y farmacéutica.',
     facebookUrl: (settings as any)?.facebookUrl || '',
     instagramUrl: (settings as any)?.instagramUrl || '',
-    linkedinUrl: (settings as any)?.linkedinUrl || '',
+    tiktokUrl: (settings as any)?.tiktokUrl || '',
     showCatalog: settings?.showCatalog !== undefined ? settings.showCatalog : true,
     showAbout: settings?.showAbout !== undefined ? settings.showAbout : true,
     showValues: settings?.showValues !== undefined ? settings.showValues : true,
@@ -188,7 +188,7 @@ export default async function Home() {
         footerAboutText={fallbackSettings.footerAboutText}
         facebookUrl={fallbackSettings.facebookUrl}
         instagramUrl={fallbackSettings.instagramUrl}
-        linkedinUrl={fallbackSettings.linkedinUrl}
+        tiktokUrl={fallbackSettings.tiktokUrl}
       />
     </>
   );

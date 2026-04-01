@@ -54,7 +54,7 @@ model SiteSettings {
   footerAboutText String   @default("Distribuidores de envases de vidrio y plástico para las industrias alimentaria, cosmética y farmacéutica.")
   facebookUrl     String?
   instagramUrl    String?
-  linkedinUrl     String?
+  tiktokUrl       String?
   siteTitle       String   @default("Crystalline | Envases de Plástico y Vidrio")
   faviconUrl      String?
   logoHeight      Int      @default(40)

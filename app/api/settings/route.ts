@@ -44,7 +44,7 @@ export async function PUT(request: Request) {
       footerAboutText: body.footerAboutText,
       facebookUrl: body.facebookUrl,
       instagramUrl: body.instagramUrl,
-      linkedinUrl: body.linkedinUrl,
+      tiktokUrl: body.tiktokUrl,
       siteTitle: body.siteTitle,
       faviconUrl: body.faviconUrl,
       logoHeight: body.logoHeight ? parseInt(body.logoHeight) : 40,

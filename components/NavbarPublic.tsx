@@ -66,7 +66,7 @@ export default function NavbarPublic({
 
   return (
     <nav className="fixed top-0 w-full z-50 glass-nav border-none">
-      <div className="flex justify-between items-center px-8 h-20 w-full max-w-screen-2xl mx-auto overflow-visible">
+      <div className="flex justify-between items-center px-8 h-24 md:h-20 w-full max-w-screen-2xl mx-auto overflow-visible">
         <Link href="/" onClick={(e) => handleScroll(e, '#home')} className="flex items-start gap-3 h-full overflow-visible pt-0">
           {logoImageUrl ? (
             <img 

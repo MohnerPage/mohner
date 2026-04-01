@@ -13,12 +13,18 @@ export async function generateMetadata(): Promise<Metadata> {
     settings = await prisma.siteSettings.findUnique({
       where: { id: 'global' }
     });
+    console.log('--- METADATA GENERATION ---');
+    console.log('Site Title:', settings?.siteTitle);
+    console.log('Favicon URL:', settings?.faviconUrl);
   } catch (error) {
     console.error("Metadata fetch failed during build:", error);
   }
 
   const absoluteTitle = settings?.siteTitle || 'Crystalline | Líder en Envases de Vidrio y Plástico en México';
-  const iconUrl = settings?.faviconUrl || '/favicon.svg';
+  // Agregar un timestamp para evitar el caché del navegador si existe un faviconURL
+  const iconUrl = settings?.faviconUrl 
+    ? `${settings.faviconUrl}?t=${Date.now()}` 
+    : '/favicon.svg';
 
   return {
     title: absoluteTitle,

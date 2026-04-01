@@ -68,7 +68,7 @@ export default function LoginPage() {
                 <input
                   className="w-full h-12 px-4 bg-surface-container-high border-none rounded-lg focus:ring-1 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:text-outline/50 text-sm"
                   id="user"
-                  placeholder="admin@crystalline.corp"
+                  placeholder="Correo electrónico"
                   type="text"
                   value={user}
                   onChange={(e) => setUser(e.target.value)}
@@ -92,7 +92,7 @@ export default function LoginPage() {
                 <input
                   className="w-full h-12 px-4 bg-surface-container-high border-none rounded-lg focus:ring-1 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:text-outline/50 text-sm"
                   id="password"
-                  placeholder="admin123"
+                  placeholder="Contraseña"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
